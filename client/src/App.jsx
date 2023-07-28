@@ -8,6 +8,7 @@ import Login from '../src/pages/Login';
 import Register from '../src/pages/Register';
 import axios from 'axios';
 import { Toaster } from 'react-hot-toast';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true

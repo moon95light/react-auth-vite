@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const { hashPassword } = require('../helpers/auth')
 
 const test = (req, res) => {
     res.json('test is working')
@@ -27,8 +28,12 @@ const registerUser = async (req, res) => {
             })
         }
 
+        const hashedPassword = await hashPassword(password);
+
         const user = await User.create({
-            name, email, password
+            name, 
+            email, 
+            password: hashedPassword,
         })
 
         return res.json(user)
@@ -38,7 +43,13 @@ const registerUser = async (req, res) => {
     }
 }
 
+
+const loginUser = async(req, res) => {
+    
+}
+
 module.exports = {
     test,
-    registerUser
+    registerUser,
+    loginUser
 }

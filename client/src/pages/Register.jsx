@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 
 export default function Register() {
     const navigate = useNavigate()
@@ -11,14 +12,14 @@ export default function Register() {
         password: '',
     })
 
-    const registerUser = async (e) =>{
+    const registerUser = async (e) => {
         e.preventDefault();
         const { name, email, password } = data
         try {
-            const {data} = await axios.post('/register', {
+            const { data } = await axios.post('/register', {
                 name, email, password
             })
-            if(data.error) {
+            if (data.error) {
                 toast.error(data.error)
             } else {
                 setData({})
@@ -31,15 +32,34 @@ export default function Register() {
     }
     return (
         <div>
-            <form onSubmit={registerUser}>
-                <label> Name </label>
-                <input type='text' placeholder='enter name...' value={data.name} onChange={(e) => setData({...data, name: e.target.value})}/>
-                <label> Email </label>
-                <input type='email' placeholder='enter email...' value={data.email} onChange={(e) => setData({...data, email: e.target.value})}/>
-                <label> Password </label>
-                <input type='password' placeholder='enter password...' value={data.password} onChange={(e) => setData({...data, password: e.target.value})}/>
-                <button type='submit'> Register </button>
-            </form>
-        </div>
+            <Form onSubmit={registerUser}>
+                <Form.Group as={Row} className="mb-3" >
+                    <Form.Label column sm="2">
+                        Name
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="name" placeholder="Enter the name..." value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3" >
+                    <Form.Label column sm="2">
+                        Email
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="email" placeholder="Enter the email..." value={data.email} onChange={(e) => setData({ ...data, email: e.target.value })} />
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} className="mb-3" >
+                    <Form.Label column sm="2">
+                        Password
+                    </Form.Label>
+                    <Col sm="10">
+                        <Form.Control type="password" placeholder="Enter the password..." value={data.password} onChange={(e) => setData({ ...data, password: e.target.value })} />
+                    </Col>
+                </Form.Group>
+
+                <Button type='submit'> Register </Button>
+            </Form>
+        </div >
     )
 }
